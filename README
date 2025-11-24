@@ -1,0 +1,40 @@
+# CNN_TPE-Brain-Tumor-Reproduction
+
+This repository contains the implementation and experimental setup for the TPO-CNN model proposed in our study for brain tumor classification using MRI. The model is designed to provide optimal classification performance for both pathological and normal brain conditions.
+
+> **Reproducibility note:**  
+> All experiments were performed with a **patient-wise data split**, ensuring that MRI slices from the same patient never appear in both training and testing sets. This eliminates any potential data leakage and ensures that the reported accuracy reflects true model generalization.
+
+---
+
+## Repository structure
+
+- `CNN_TPE_BrainTumor_Reproduction_train_test.ipynb`  
+  Main Jupyter notebook containing:
+  - Data loading and preprocessing
+  - Patient-wise train/test split
+  - Model definition (TPO-CNN)
+  - Training loops
+  - Evaluation and metrics
+
+> Additional scripts / notebooks will be added over time as we further organize the code and experiments.
+
+---
+
+## Requirements
+
+The code was developed and tested with:
+
+- Python 3.x
+- Jupyter Notebook
+- Common deep learning and scientific Python libraries, e.g.:
+  - `numpy`
+  - `pandas`
+  - `scikit-learn`
+  - `tensorflow` or `pytorch` (specify which you actually use)
+  - `matplotlib`
+
+You can install the dependencies with:
+
+```bash
+pip install -r requirements.txt
