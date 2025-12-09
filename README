@@ -1,40 +1,147 @@
-# CNN_TPE-Brain-Tumor-Reproduction
+CNN_TPE_BrainTumor_Reproduction
 
-This repository contains the implementation and experimental setup for the TPO-CNN model proposed in our study for brain tumor classification using MRI. The model is designed to provide optimal classification performance for both pathological and normal brain conditions.
+Reproduction of a full pipeline for brain tumor classification using a
+Convolutional Neural Network (CNN) optimized with Tree-Structured Parzen
+Estimator (TPE).
+This project includes dataset preparation, model definition,
+hyperparameter optimization, training, evaluation, and fine-tuning.
 
-> **Reproducibility note:**  
-> All experiments were performed with a **patient-wise data split**, ensuring that MRI slices from the same patient never appear in both training and testing sets. This eliminates any potential data leakage and ensures that the reported accuracy reflects true model generalization.
+Repository Structure
 
----
+    CNN_TPE_BrainTumor_Reproduction/
+    │
+    ├── process_dataset.py                  # Dataset preprocessing, normalization, labeling
+    ├── train_cnn_tpe.py                   # CNN model training and TPE hyperparameter optimization
+    ├── evaluate_model.py                  # Model evaluation on the test split
+    ├── fine_tune_model.py                 # Fine-tuning a trained model on new data
+    │
+    ├── environment_cpu.yml                # Conda environment (CPU)
+    ├── environment_gpu.yml                # Conda environment (GPU)
+    │
+    ├── notebooks/
+    │   ├── 1_data_preparation.ipynb       # Interactive dataset creation
+    │   ├── 2_hyperparameter_search.ipynb  # TPE optimization workflow
+    │   ├── 3_train_evaluate.ipynb         # Model training and evaluation
+    │
+    ├── src/
+    │   ├── model_architectures.py         # CNN architectures and layers
+    │   ├── tpe_functions.py               # Search space definitions and optimization logic
+    │   ├── training_utils.py              # Training loop, callbacks, metrics
+    │   ├── dataset_utils.py               # Loaders, augmentation, transformations
+    │
+    ├── trained_models/
+    │   ├── CNN_TPE_BestModel.pth          # Best model checkpoint
+    │   ├── CNN_TPE_BestParams.json        # Best TPE hyperparameters
+    │
+    ├── example_inputs/
+    │   ├── sample_train_data.csv          # Sample formatted training file
+    │   ├── sample_test_data.csv           # Sample formatted testing file
+    │
+    └── README.md
 
-## Repository structure
+Installation
 
-- `CNN_TPE_BrainTumor_Reproduction_train_test.ipynb`  
-  Main Jupyter notebook containing:
-  - Data loading and preprocessing
-  - Patient-wise train/test split
-  - Model definition (TPO-CNN)
-  - Training loops
-  - Evaluation and metrics
+GPU environment
 
-> Additional scripts / notebooks will be added over time as we further organize the code and experiments.
+    conda env create -f environment_gpu.yml
+    conda activate cnn_tpe_env
 
----
+CPU environment
 
-## Requirements
+    conda env create -f environment_cpu.yml
+    conda activate cnn_tpe_env
 
-The code was developed and tested with:
+Install local modules:
 
-- Python 3.x
-- Jupyter Notebook
-- Common deep learning and scientific Python libraries, e.g.:
-  - `numpy`
-  - `pandas`
-  - `scikit-learn`
-  - `tensorflow` or `pytorch` (specify which you actually use)
-  - `matplotlib`
+    pip install -e .
 
-You can install the dependencies with:
+Usage
 
-```bash
-pip install -r requirements.txt
+1. Dataset Processing
+
+    python process_dataset.py     --data_dir ./raw_data     --output_dir ./processed_data     --img_size 224
+
+2. Run TPE Optimization
+
+    python train_cnn_tpe.py     --train_dir ./processed_data/train     --val_dir ./processed_data/val     --epochs 30     --trials 50     --save_dir trained_models/
+
+3. Evaluate Model
+
+    python evaluate_model.py     --test_dir ./processed_data/test     --model trained_models/CNN_TPE_BestModel.pth     --params trained_models/CNN_TPE_BestParams.json
+
+4. Fine-Tune Model
+
+    python fine_tune_model.py     --new_data ./new_dataset     --model trained_models/CNN_TPE_BestModel.pth     --epochs 10
+
+Input Format
+
+The dataset should follow:
+
+    dataset/
+    │── train/
+    │── val/
+    │── test/
+          ├── glioma/
+          ├── meningioma/
+          ├── pituitary/
+          ├── no_tumor/
+
+Output
+
+Dataset Processing
+
+-   Normalized and augmented dataset directories
+-   Class statistics
+
+TPE Optimization
+
+-   Best hyperparameters (JSON)
+-   Best model checkpoint (pth)
+-   Training logs and metric curves
+
+Evaluation
+
+-   Accuracy, precision, recall, F1-score
+-   Confusion matrix
+-   Classification report
+
+Workflow Description
+
+1. Data Loading and Cleaning
+
+2. Hyperparameter Optimization (TPE)
+
+3. CNN Training
+
+4. Model Evaluation
+
+Configuration
+
+Editable parameters in:
+
+-   tpe_functions.py
+-   model_architectures.py
+-   train_cnn_tpe.py
+
+End-to-End Execution
+
+    python process_dataset.py
+    python train_cnn_tpe.py
+    python evaluate_model.py
+
+Notebooks
+
+Dependencies
+
+Python 3.8+
+PyTorch
+Optuna
+NumPy
+Pandas
+scikit-learn
+Matplotlib
+torchvision
+
+License
+
+For research and educational use.
