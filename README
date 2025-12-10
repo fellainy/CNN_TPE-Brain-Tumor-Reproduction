@@ -10,7 +10,7 @@ Repository Structure
 
     CNN_TPE_BrainTumor_Reproduction/
     │
-    ├── train_cnn_tpe.py                   # CNN model training and TPE hyperparameter optimization
+    ├── CNN_TPE_BrainTumor_Reproduction_train_test.ipynb                   # CNN model training and TPE hyperparameter optimization
     
     │
     ├── environment_cpu.yml                # Conda environment (CPU)
