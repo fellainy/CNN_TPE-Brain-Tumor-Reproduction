@@ -11,29 +11,15 @@ Repository Structure
     CNN_TPE_BrainTumor_Reproduction/
     │
     ├── CNN_TPE_BrainTumor_Reproduction_train_test.ipynb                   # CNN model training and TPE hyperparameter optimization
-    
     │
-    ├── environment_cpu.yml                # Conda environment (CPU)
-    ├── environment_gpu.yml                # Conda environment (GPU)
+    │   
+    │   
+    │  
     │
-    ├── notebooks/
-    │   ├── 1_data_preparation             # Interactive dataset creation
-    │   ├── 2_hyperparameter_search      # TPE optimization workflow
-    │   ├── 3_train_evaluate            # Model training and evaluation
+    │   
     │
-    ├── src/
-    │   ├── model_architectures             # CNN architectures and layers
-    │   ├── tpe_functions                   # Search space definitions and optimization logic
-    │   ├── training_utils                  # Training loop, callbacks, metrics
-    │   ├── dataset_utils                 # Loaders, augmentation, transformations
-    │
-    ├── trained_models/
-    │   ├── CNN_TPE_BestModel.pth          # Best model checkpoint
-    │   ├── CNN_TPE_BestParams.json        # Best TPE hyperparameters
-    │
-    ├── example_inputs/
-    │   ├── sample_train_data.csv          # Sample formatted training file
-    │   ├── sample_test_data.csv           # Sample formatted testing file
+    │   
+    │  
     │
     └── README.md
 
